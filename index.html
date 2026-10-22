@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, My Entire Universe ✨</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti for magical bursts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            velvet: {
+              950: '#090412',
+              900: '#110722',
+              850: '#170c2e',
+              800: '#21103f',
+            },
+            champagne: {
+              100: '#fdfbf7',
+              200: '#f8f2e6',
+              300: '#eddcc1',
+              400: '#e0c294',
+              500: '#d4af37',
+            },
+            rosegold: {
+              300: '#fbcfe8',
+              400: '#f4a6c8',
+              500: '#e580a6',
+              600: '#c75c87',
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            script: ['"Great Vibes"', 'cursive'],
+            display: ['"Cinzel Decorative"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          animation: {
+            'float-slow': 'float 7s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'shimmer': 'shimmer 2.5s infinite linear',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-14px) rotate(1.5deg)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+              '50%': { opacity: '1', transform: 'scale(1.04)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% center' },
+              '100%': { backgroundPosition: '200% center' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d061a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #d4af37, #e580a6);
+      border-radius: 9999px;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-card {
+      background: rgba(26, 12, 45, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(244, 166, 200, 0.18);
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .glass-card-glow {
+      background: rgba(33, 16, 63, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(224, 194, 148, 0.35);
+      box-shadow: 0 0 35px rgba(229, 128, 166, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .shimmer-text {
+      background: linear-gradient(90deg, #eddcc1 0%, #fff 35%, #f4a6c8 50%, #eddcc1 100%);
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: shimmer 5s linear infinite;
+    }
+
+    /* 3D Envelope & Flip card styles */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-preserve-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Candle Flame Animation */
+    .candle-flame {
+      transform-origin: center bottom;
+      animation: flicker 1.8s ease-in-out infinite alternate;
+      box-shadow: 0 0 20px 6px rgba(255, 191, 0, 0.8), 0 0 35px 12px rgba(255, 94, 0, 0.4);
+    }
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-1.5deg); opacity: 0.95; }
+      25% { transform: scale(1.08, 0.95) rotate(1deg); opacity: 1; }
+      50% { transform: scale(0.96, 1.05) rotate(-2deg); opacity: 0.88; }
+      75% { transform: scale(1.04, 0.98) rotate(1.5deg); opacity: 0.98; }
+      100% { transform: scale(1.02, 1.02) rotate(-0.5deg); opacity: 0.92; }
+    }
+
+    .blown-out {
+      opacity: 0 !important;
+      transform: scale(0.1) translateY(-20px) !important;
+      transition: all 0.6s ease-out;
+      box-shadow: none !important;
+    }
+    .smoke-puff {
+      opacity: 0;
+      animation: riseSmoke 1.5s forwards ease-out;
+    }
+    @keyframes riseSmoke {
+      0% { opacity: 0.8; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-40px) scale(2.2); filter: blur(4px); }
+    }
+
+    .digit-box {
+      background: linear-gradient(180deg, rgba(39, 19, 74, 0.85) 0%, rgba(17, 7, 34, 0.95) 100%);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+
+  
+  /* Special Gifts Section */
+  .special-gifts {
+    width: 100%;
+    max-width: 1024px;
+    padding: 70px 0;
+    margin: 0 auto;
+    text-align: center;
+    scroll-margin-top: 30px;
+  }
+
+  .special-gifts h2 {
+    font-family: "Cinzel Decorative", serif;
+    font-size: clamp(22px, 4vw, 34px);
+    color: #eddcc1;
+    margin-bottom: 12px;
+    text-shadow: 0 0 25px rgba(229, 128, 166, 0.25);
+  }
+
+  .gift-subtitle {
+    color: rgba(248, 242, 230, 0.7);
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    margin-bottom: 30px;
+  }
+
+  .gift-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+  }
+
+  .gift-card {
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 18px;
+    background: rgba(26, 12, 45, 0.65);
+    border: 1px solid rgba(244, 166, 200, 0.2);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, border-color 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+
+  .gift-card:hover {
+    transform: translateY(-6px);
+    border-color: #e580a6;
+    box-shadow: 0 12px 35px rgba(229, 128, 166, 0.2);
+  }
+
+  .gift-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 4;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid rgba(224, 194, 148, 0.25);
+  }
+
+  .gift-card h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    color: #f4a6c8;
+    margin: 14px 0 6px;
+  }
+
+  .gift-card p {
+    color: rgba(248, 242, 230, 0.7);
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 5px;
+  }
+
+  /* Photo popup */
+  .gift-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(9, 4, 18, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .gift-popup.show {
+    display: flex;
+    animation: giftFadeIn 0.25s ease;
+  }
+
+  @keyframes giftFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .gift-popup-content {
+    width: 100%;
+    max-width: 700px;
+    max-height: 85vh;
+    text-align: center;
+  }
+
+  .gift-popup-content h3 {
+    color: #f4a6c8;
+    font-family: "Playfair Display", serif;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .gift-popup-content img {
+    display: block;
+    max-width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    margin: auto;
+    border-radius: 14px;
+    border: 1px solid rgba(224, 194, 148, 0.4);
+    box-shadow: 0 0 35px rgba(229, 128, 166, 0.15);
+  }
+
+  .gift-close {
+    position: absolute;
+    top: 12px;
+    right: 22px;
+    color: #f8f2e6;
+    background: transparent;
+    border: none;
+    font-size: 42px;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .gift-close:hover {
+    color: #f4a6c8;
+  }
+
+  /* Tablets */
+  @media (max-width: 768px) {
+    .special-gifts {
+      width: 100%;
+      padding: 45px 16px;
+      box-sizing: border-box;
+    }
+
+    .gift-container {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .gift-card img {
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      background: #fff;
+    }
+  }
+
+  /* Mobile phones */
+  @media (max-width: 480px) {
+    .special-gifts {
+      padding: 35px 14px;
+    }
+
+    .gift-container {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .gift-card {
+      padding: 10px;
+      border-radius: 16px;
+    }
+
+    .gift-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .gift-card h3 {
+      font-size: 18px;
+      margin: 12px 0 6px;
+    }
+
+    .gift-card p {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .gift-card:hover {
+      transform: none;
+    }
+
+    .gift-popup {
+      padding: 12px;
+    }
+
+    .gift-popup-content {
+      max-height: 90vh;
+    }
+
+    .gift-popup-content h3 {
+      font-size: 20px;
+    }
+
+    .gift-popup-content img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+    }
+
+    .gift-close {
+      top: 12px;
+      right: 14px;
+      font-size: 36px;
+    }
+  }
+
+
+  /* SECTION 3: TREASURES OF YOU — SHIKHA */
+  .treasures-section {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 80px 0;
+    position: relative;
+    scroll-margin-top: 30px;
+  }
+
+  .treasures-header {
+    text-align: center;
+    margin-bottom: 38px;
+  }
+
+  .treasures-eyebrow {
+    color: #f4a6c8;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .treasures-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin: 8px 0;
+    letter-spacing: 0.02em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    background: linear-gradient(180deg, #ffffff 40%, #ffd4e5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Pinkish glow around the name */
+    filter: drop-shadow(0 4px 25px rgba(255, 70, 140, 0.7));
+  }
+
+  .treasures-title .heart {
+    -webkit-text-fill-color: initial;
+    font-size: 0.75em;
+
+    /* Stronger pink glow around the heart */
+    filter: drop-shadow(0 4px 25px rgba(255, 70, 140, 0.7));
+  }
+
+  .treasures-tagline {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    font-style: italic;
+    color: #dfb2c5;
+    line-height: 1.8;
+    padding: 0 10px;
+  }
+
+  .treasures-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
+  }
+
+  .treasures-scene {
+    height: 290px;
+    min-width: 0;
+    perspective: 1200px;
+  }
+
+  .treasures-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transition: transform 0.75s cubic-bezier(0.2, 0.85, 0.32, 1.15);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .treasures-card.is-flipped {
+    transform: rotateY(180deg);
+  }
+
+  .treasures-face {
+    position: absolute;
+    inset: 0;
+    padding: 24px 20px;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(
+      145deg,
+      rgba(38, 16, 38, 0.94),
+      rgba(18, 7, 25, 0.97)
+    );
+    border: 1px solid rgba(255, 140, 175, 0.35);
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.3),
+      inset 0 0 20px rgba(255, 120, 170, 0.08),
+      0 0 16px rgba(255, 95, 140, 0.12);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  .treasures-card:hover .treasures-face {
+    border-color: rgba(255, 175, 200, 0.75);
+    box-shadow: 0 12px 34px rgba(229, 128, 166, 0.2);
+  }
+
+  .treasures-face-back {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    padding: 22px 20px;
+    background: linear-gradient(
+      145deg,
+      rgba(49, 18, 43, 0.98),
+      rgba(17, 7, 26, 0.99)
+    );
+  }
+
+  .treasures-badge {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 160, 185, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background: rgba(255, 100, 150, 0.1);
+    box-shadow: 0 0 10px rgba(255, 120, 160, 0.2);
+  }
+
+  .treasures-letter-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px 0;
+  }
+
+  .treasures-letter {
+    font-family: "Playfair Display", serif;
+    font-size: 4.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    background: linear-gradient(180deg, #fff 15%, #ffc0d7 65%, #ff8cb2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 3px 12px rgba(255, 120, 160, 0.35));
+  }
+
+  .treasures-decoration {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 12px rgba(255, 110, 160, 0.4));
+  }
+
+  .treasures-front-info {
+    width: 100%;
+  }
+
+  .treasures-code {
+    color: #e5b0c2;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 5px;
+  }
+
+  .treasures-card-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-weight: 500;
+    line-height: 1.4;
+    color: #fff;
+  }
+
+  .treasures-hint {
+    font-size: 0.7rem;
+    color: #d5a5b8;
+    letter-spacing: 0.06em;
+  }
+
+  .treasures-quote {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(0.88rem, 1.2vw, 1rem);
+    font-style: italic;
+    line-height: 1.7;
+    color: #f7d8e4;
+    margin: auto 0;
+    overflow-wrap: anywhere;
+  }
+
+  .treasures-footer-note {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: rgba(248, 242, 230, 0.55);
+  }
+
+  @media (max-width: 980px) {
+    .treasures-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .treasures-card-title {
+      font-size: 1.15rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .treasures-section {
+      padding: 55px 0;
+    }
+
+    .treasures-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .treasures-scene {
+      height: 280px;
+    }
+
+    .treasures-face {
+      padding: 22px;
+    }
+
+    .treasures-quote {
+      font-size: 0.98rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .treasures-card {
+      transition: none;
+    }
+  } 
+
+  </style>
+</head>
+
+<body class="bg-velvet-950 text-champagne-100 font-sans antialiased overflow-x-hidden selection:bg-rosegold-500 selection:text-white">
+  <audio id="birthdayMusic" loop>
+    <source src="audio/birthday-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="birthdayWishMusic">
+    <source src="audio/birthday-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Interactive Starry Background Canvas -->
+  <canvas id="star-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Controls Float (Music & Date Setting) -->
+  <div class="fixed top-5 right-5 z-50 flex items-center gap-2 sm:gap-3">
+    <button id="soundToggle" onclick="toggleBirthdayMusic()" class="group flex items-center gap-2.5 px-4 py-2.5 rounded-full glass-card hover:border-rosegold-400 transition-all duration-300 shadow-xl cursor-pointer">
+      <span class="relative flex h-3 w-3">
+        <span id="soundPing" class="hidden absolute inline-flex h-full w-full rounded-full bg-rosegold-400 opacity-75 animate-ping"></span>
+        <span id="soundDot" class="relative inline-flex rounded-full h-3 w-3 bg-gray-500"></span>
+      </span>
+      <i id="soundIcon" data-lucide="music-2" class="w-4 h-4 text-champagne-300 group-hover:text-rosegold-300 transition-colors"></i>
+      <span id="soundText" class="text-xs uppercase tracking-wider font-semibold text-champagne-200">Play Hindi Song</span>
+    </button>
+
+  </div>
+
+  <!-- Main Wrapper -->
+  <div class="relative z-10 flex flex-col items-center w-full px-4 sm:px-6 lg:px-8">
+
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center max-w-4xl pt-16 pb-16 relative">
+      <!-- Glow aura behind title -->
+      <div class="absolute -top-10 w-72 sm:w-96 h-72 sm:h-96 bg-gradient-to-tr from-rosegold-600/30 to-champagne-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow"></div>
+
+      <!-- Crown/Tiara & Date badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-rosegold-400/40 bg-rosegold-900/30 text-champagne-300 text-xs sm:text-sm tracking-widest uppercase mb-6 shadow-inner backdrop-blur-md">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-rosegold-400"></i>
+        <span>To the One Who Lights My Sky</span>
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-rosegold-400"></i>
+      </div>
+
+      <!-- Main Headline with Editable Person Name -->
+      <!-- Main Headline -->
+      <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight shimmer-text mb-4 drop-shadow-lg">
+        Happy Birthday
+      </h1>
+      <h2 class="font-script text-4xl sm:text-6xl md:text-7xl text-rosegold-300 mb-6 drop-shadow-md">
+        to My Favorite Person in the Universe
+      </h2>
+
+      <!-- Subtitle description -->
+      <p class="font-serif italic text-lg sm:text-2xl text-champagne-200/90 max-w-2xl font-light leading-relaxed mb-8">
+        “Out of seven billion souls on this spinning planet, Bitto your laugh is my happiness and I want aap hamesha hasti rhe.”
+      </p>
+
+      <!-- COUNTDOWN TIMER MODULE -->
+      <div id="countdownContainer" class="w-full max-w-2xl mb-10">
+        <!-- Live status headline -->
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <i data-lucide="hourglass" class="w-4 h-4 text-champagne-400 animate-spin" style="animation-duration: 8s;"></i>
+          <p id="countdownMessage" class="text-xs sm:text-sm font-sans tracking-widest uppercase text-champagne-300/90 font-medium">
+            Counting down every second until your magical day...
+          </p>
+        </div>
+
+        <!-- The Luxury Clock Grid -->
+        <div class="glass-card-glow rounded-3xl p-5 sm:p-7 border border-champagne-400/30 shadow-2xl relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-24 h-24 bg-champagne-500/10 rounded-full blur-xl pointer-events-none"></div>
+          
+          <div class="grid grid-cols-4 gap-2.5 sm:gap-5">
+            <!-- Days -->
+            <div class="flex flex-col items-center">
+              <div class="digit-box w-full py-3 sm:py-5 rounded-2xl border border-champagne-400/30 flex items-center justify-center">
+                <span id="daysCount" class="font-display text-2xl sm:text-4xl md:text-5xl font-bold text-champagne-200 tracking-wider">00</span>
+              </div>
+              <span class="text-[10px] sm:text-xs font-sans tracking-widest uppercase text-champagne-400/80 mt-2 font-medium">Days</span>
+            </div>
+
+            <!-- Hours -->
+            <div class="flex flex-col items-center">
+              <div class="digit-box w-full py-3 sm:py-5 rounded-2xl border border-champagne-400/30 flex items-center justify-center">
+                <span id="hoursCount" class="font-display text-2xl sm:text-4xl md:text-5xl font-bold text-champagne-200 tracking-wider">00</span>
+              </div>
+              <span class="text-[10px] sm:text-xs font-sans tracking-widest uppercase text-champagne-400/80 mt-2 font-medium">Hours</span>
+            </div>
+
+            <!-- Minutes -->
+            <div class="flex flex-col items-center">
+              <div class="digit-box w-full py-3 sm:py-5 rounded-2xl border border-champagne-400/30 flex items-center justify-center">
+                <span id="minutesCount" class="font-display text-2xl sm:text-4xl md:text-5xl font-bold text-champagne-200 tracking-wider">00</span>
+              </div>
+              <span class="text-[10px] sm:text-xs font-sans tracking-widest uppercase text-champagne-400/80 mt-2 font-medium">Minutes</span>
+            </div>
+
+            <!-- Seconds -->
+            <div class="flex flex-col items-center">
+              <div class="digit-box w-full py-3 sm:py-5 rounded-2xl border border-rosegold-400/40 flex items-center justify-center">
+                <span id="secondsCount" class="font-display text-2xl sm:text-4xl md:text-5xl font-bold text-rosegold-300 tracking-wider">00</span>
+              </div>
+              <span class="text-[10px] sm:text-xs font-sans tracking-widest uppercase text-rosegold-400/80 mt-2 font-medium">Seconds</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Birthday Day Special Banner (Shown when countdown reaches 0 or today) -->
+        <div id="birthdayCelebrationBanner" class="hidden mt-4 p-4 rounded-2xl bg-gradient-to-r from-rosegold-600/40 via-champagne-500/30 to-rosegold-600/40 border border-champagne-400/60 text-champagne-100 shadow-2xl animate-pulse">
+          <div class="flex items-center justify-center gap-2">
+            <i data-lucide="sparkles" class="w-5 h-5 text-champagne-300"></i>
+            <span class="font-serif italic font-semibold text-base sm:text-lg">✨ The wait is over! Today is YOUR magical day! ✨</span>
+            <i data-lucide="sparkles" class="w-5 h-5 text-champagne-300"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+        <a href="#letterSection" class="w-full sm:w-auto px-8 py-3.5 rounded-full font-medium text-sm tracking-wider uppercase bg-gradient-to-r from-rosegold-500 via-rosegold-400 to-champagne-400 text-velvet-950 font-semibold shadow-lg shadow-rosegold-500/25 hover:shadow-rosegold-500/45 hover:scale-105 active:scale-95 transition-all duration-300 text-center flex items-center justify-center gap-2">
+          <i data-lucide="heart" class="w-4 h-4 fill-red-500 text-red-500"></i>
+          <span>Open Your Letter</span>
+        </a>
+        <a href="#cakeSection" class="w-full sm:w-auto px-8 py-3.5 rounded-full font-medium text-sm tracking-wider uppercase glass-card hover:bg-white/10 hover:border-rosegold-300 text-champagne-200 transition-all duration-300 text-center flex items-center justify-center gap-2">
+          <i data-lucide="flame" class="w-4 h-4 text-champagne-400"></i>
+          <span>Make A Wish</span>
+        </a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="mt-14 animate-bounce text-champagne-400/60 flex flex-col items-center gap-1 cursor-pointer" onclick="document.getElementById('letterSection').scrollIntoView({behavior:'smooth'})">
+        <span class="text-xs tracking-widest uppercase font-sans">Scroll down</span>
+        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+      </div>
+    </section>
+
+    <!-- SECTION 2: THE 3D UNWRAPPING LOVE LETTER -->
+    <section id="letterSection" class="py-20 w-full max-w-3xl flex flex-col items-center">
+      <div class="text-center mb-10">
+        <span class="text-xs uppercase tracking-widest text-rosegold-400 font-semibold">Special Delivery</span>
+        <h3 class="font-serif text-3xl sm:text-4xl text-champagne-100 mt-2">Bitto Ke Naam Ek Chhota Sa Letter</h3>
+        <p class="text-champagne-300/70 text-sm mt-1">click the royal seal below to open your personal letter</p>
+      </div>
+
+      <!-- Envelope & Letter Container -->
+      <div class="relative w-full max-w-lg mx-auto">
+        <!-- Interactive Envelope Box -->
+        <div id="envelopeWrapper" onclick="toggleEnvelope()" class="cursor-pointer group relative bg-gradient-to-b from-velvet-800 to-velvet-900 border border-rosegold-400/30 rounded-2xl p-6 sm:p-8 shadow-2xl transition-all duration-500 hover:border-rosegold-400 hover:shadow-rosegold-500/20">
+          
+          <!-- Closed Envelope Presentation -->
+          <div id="envelopeCover" class="flex flex-col items-center text-center py-8">
+            <div class="relative mb-6">
+              <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-rosegold-500 to-champagne-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <i data-lucide="mail-open" class="w-9 h-9 text-velvet-950"></i>
+              </div>
+              <div class="absolute -bottom-1 -right-1 bg-champagne-300 text-velvet-950 rounded-full p-1.5 shadow">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 fill-current"></i>
+              </div>
+            </div>
+            
+            <h4 class="font-serif text-xl sm:text-2xl text-champagne-200">For: Queen of the Universe</h4>
+            <p class="text-sm text-champagne-300/60 mt-1">Written with pure heart & eternal gratitude</p>
+            <div class="mt-6 px-6 py-2 rounded-full border border-champagne-400/30 text-champagne-300 text-xs font-semibold tracking-wider uppercase group-hover:bg-rosegold-500/20 transition-all flex items-center gap-2">
+              <i data-lucide="key" class="w-3.5 h-3.5"></i>
+              <span>Touch to Break the Wax Seal</span>
+            </div>
+          </div>
+
+          <!-- Unfolded Letter Content (Hidden by default) -->
+          <div id="envelopeLetter" class="hidden opacity-0 transform translate-y-4 transition-all duration-700 ease-out">
+            <div class="p-6 sm:p-8 rounded-xl bg-champagne-100 text-velvet-950 font-serif shadow-inner relative overflow-hidden">
+              <!-- Watermark decoration -->
+              <div class="absolute right-2 -bottom-10 opacity-5 pointer-events-none select-none text-9xl font-serif text-rosegold-600">
+                ❤
+              </div>
+
+              <!-- Header -->
+              <div class="flex justify-between items-center border-b border-champagne-300/60 pb-4 mb-5">
+                <div>
+                  <span class="text-xs uppercase tracking-widest text-rosegold-600 font-sans font-bold">Midnight Edition</span>
+                  <h4 class="text-2xl font-script text-velvet-900 font-bold">Dearest Bitto,</h4>
+                </div>
+                <div class="text-right">
+                  <span id="currentDateStr" class="text-xs font-sans text-stone-500 block">Today & Forever</span>
+                  <span class="text-xs font-script text-rosegold-600 text-lg">Always yours</span>
+                </div>
+              </div>
+
+              <!-- Romantic Letter Content (Editable by user) -->
+              <div id="letterEditableText" contenteditable="true" spellcheck="false" class="focus:outline-none focus:ring-1 focus:ring-rosegold-400 rounded p-1 text-sm sm:text-base leading-relaxed text-stone-800 space-y-4">
+                <p>
+                  Happy Birthday, meri pyaari Bitto! ❤️🥹
+                  Sabse pehle toh main bas yahi chahta hoon ki tum hamesha khush raho.
+                  Tumhari smile aise hi bani rahe, kyunki tumhe khush dekh kar mujhe bhi bahut achha lagta hai.
+                </p>
+
+                <p>
+                  Pata hai, tumhari bahut si baatein mujhe pasand hain.
+                  Tumhara ziddi hona, apni baat manwane ka tumhara style,
+                  tumhara pagalpan aur tumhari chhoti-chhoti harkatein.
+                  Kabhi-kabhi tum bahut tang bhi karti ho,
+                  lekin sach kahun toh tumhari yehi baatein tumhe mere liye special banati hain.
+                </p>
+
+                <p>
+                  Bas ek baat hamesha yaad rakhna, Bitto.
+                  Tum apna achha dil kabhi mat badalna.
+                  Hamesha kind aur helpful rehna, lekin dusron ka dhyan rakhte-rakhte
+                  khud ko mat bhool jaana.
+                  Tumhari khushi aur tumhara sukoon bhi utna hi zaroori hai.
+                </p>
+
+                <p>
+                  Main chahta hoon ki tum apne saare dreams poore karo,
+                  life mein bahut aage jao aur hamesha khud par proud feel karo.
+                  Aur jab kabhi mood off ho ya koi pareshani ho,
+                  toh sab kuch akele handle karne ki zaroorat nahi hai.
+                  Mujhse share kar lena, main tumhari baat sunne ke liye hoon. 🫶
+                </p>
+
+                <p>
+                  Main nahi jaanta ki main har baar apni feelings sahi se express kar pata hoon ya nahi,
+                  par tum mere liye bahut special ho.
+                  Main bas chahta hoon ki tumhe hamesha pyaar, respect aur khushiyan milein.
+                  Aur haan madam, kabhi-kabhi meri baat bhi maan liya karo! 💗
+                </p>
+
+                <p class="font-script text-2xl text-rosegold-600 pt-2">
+                  Hamesha khush rehna, meri Bitto. ❤️
+                  <br />
+                  Lots of love,
+                  <br />
+                  Tumhara Anuj 🫶
+                </p>
+              </div>
+
+              <!-- Bottom Bar inside letter -->
+              <div class="mt-6 pt-4 border-t border-champagne-300/60 flex items-center justify-between text-xs font-sans text-stone-500">
+                <button onclick="event.stopPropagation(); triggerHeartExplosion();" class="text-rosegold-600 hover:text-rosegold-700 font-semibold flex items-center gap-1">
+                  <i data-lucide="heart" class="w-3.5 h-3.5 fill-current"></i> Send Love
+                </button>
+              </div>
+            </div>
+
+            <!-- Fold back button -->
+            <div class="text-center mt-4">
+              <button onclick="event.stopPropagation(); toggleEnvelope();" class="text-xs text-champagne-300/80 hover:text-white underline tracking-wider uppercase font-sans">
+                Fold Letter Back
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 3: TREASURES OF YOU — SHIKHA -->
+    <section id="treasuresSection" class="treasures-section">
+
+      <div class="treasures-header">
+        <span class="treasures-eyebrow">
+          Treasures of You 💖
+        </span>
+
+        <h3 class="treasures-title">
+          Shikha <span class="heart">💗</span>
+        </h3>
+
+        <p class="treasures-tagline">
+          Six little letters, countless reasons to adore you 💕
+        </p>
+      </div>
+
+      <div class="treasures-grid">
+
+        <!-- S: Sweetest Soul -->
+        <div class="treasures-scene">
+          <div class="treasures-card"
+              role="button" tabindex="0"
+              aria-label="Sweetest Soul. Activate to reveal the message."
+              aria-pressed="false"
+              onclick="toggleTreasuresCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTreasuresCard(this)}">
+
+            <div class="treasures-face">
+              <div class="treasures-badge">❤️</div>
+
+              <div class="treasures-letter-row">
+                <span class="treasures-letter">S</span>
+                <span class="treasures-decoration">💗</span>
+              </div>
+
+              <div class="treasures-front-info">
+                <div class="treasures-code">S 💖</div>
+                <div class="treasures-card-title">Sweetest Soul</div>
+              </div>
+
+              <div class="treasures-hint">Tap to flip ↻</div>
+            </div>
+
+            <div class="treasures-face treasures-face-back">
+              <div class="treasures-badge">✨</div>
+              <p class="treasures-quote">
+                “You are the sweetest person with the most beautiful heart.
+                Your presence makes ordinary moments feel magical. 💖”
+              </p>
+              <div class="treasures-hint">Tap to flip back ↻</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- H: Honest & Humble -->
+        <div class="treasures-scene">
+          <div class="treasures-card"
+              role="button" tabindex="0"
+              aria-label="Honest and Humble. Activate to reveal the message."
+              aria-pressed="false"
+              onclick="toggleTreasuresCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTreasuresCard(this)}">
+
+            <div class="treasures-face">
+              <div class="treasures-badge">🌸</div>
+
+              <div class="treasures-letter-row">
+                <span class="treasures-letter">H</span>
+                <span class="treasures-decoration">🌸</span>
+              </div>
+
+              <div class="treasures-front-info">
+                <div class="treasures-code">H 🌸</div>
+                <div class="treasures-card-title">Honest &amp; Humble</div>
+              </div>
+
+              <div class="treasures-hint">Tap to flip ↻</div>
+            </div>
+
+            <div class="treasures-face treasures-face-back">
+              <div class="treasures-badge">🌸</div>
+              <p class="treasures-quote">
+                “Your honesty and humility make you beautiful in ways that
+                go far beyond appearances. Never lose that lovely part
+                of yourself. 🌸”
+              </p>
+              <div class="treasures-hint">Tap to flip back ↻</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- I: Intelligent & Inspiring -->
+        <div class="treasures-scene">
+          <div class="treasures-card"
+              role="button" tabindex="0"
+              aria-label="Intelligent and Inspiring. Activate to reveal the message."
+              aria-pressed="false"
+              onclick="toggleTreasuresCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTreasuresCard(this)}">
+
+            <div class="treasures-face">
+              <div class="treasures-badge">✨</div>
+
+              <div class="treasures-letter-row">
+                <span class="treasures-letter">I</span>
+                <span class="treasures-decoration">✨</span>
+              </div>
+
+              <div class="treasures-front-info">
+                <div class="treasures-code">I ✨</div>
+                <div class="treasures-card-title">Intelligent &amp; Inspiring</div>
+              </div>
+
+              <div class="treasures-hint">Tap to flip ↻</div>
+            </div>
+
+            <div class="treasures-face treasures-face-back">
+              <div class="treasures-badge">✨</div>
+              <p class="treasures-quote">
+                “Your intelligence amazes me, and the way you think and see
+                the world inspires me. You have a beautiful mind and a
+                wonderful soul. ✨”
+              </p>
+              <div class="treasures-hint">Tap to flip back ↻</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- K: Kind & Positive -->
+        <div class="treasures-scene">
+          <div class="treasures-card"
+              role="button" tabindex="0"
+              aria-label="Kind and Positive. Activate to reveal the message."
+              aria-pressed="false"
+              onclick="toggleTreasuresCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTreasuresCard(this)}">
+
+            <div class="treasures-face">
+              <div class="treasures-badge">💖</div>
+
+              <div class="treasures-letter-row">
+                <span class="treasures-letter">K</span>
+                <span class="treasures-decoration">🥰</span>
+              </div>
+
+              <div class="treasures-front-info">
+                <div class="treasures-code">K 🥰</div>
+                <div class="treasures-card-title">Kind &amp; Positive</div>
+              </div>
+
+              <div class="treasures-hint">Tap to flip ↻</div>
+            </div>
+
+            <div class="treasures-face treasures-face-back">
+              <div class="treasures-badge">🤝</div>
+              <p class="treasures-quote">
+                “Your kind heart and positive energy make the world a little
+                brighter. The care you show others is one of the many
+                things I adore about you. 🥰”
+              </p>
+              <div class="treasures-hint">Tap to flip back ↻</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- H: Happiness Everywhere -->
+        <div class="treasures-scene">
+          <div class="treasures-card"
+              role="button" tabindex="0"
+              aria-label="Happiness Everywhere. Activate to reveal the message."
+              aria-pressed="false"
+              onclick="toggleTreasuresCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTreasuresCard(this)}">
+
+            <div class="treasures-face">
+              <div class="treasures-badge">🔆</div>
+
+              <div class="treasures-letter-row">
+                <span class="treasures-letter">H</span>
+                <span class="treasures-decoration">🌷</span>
+              </div>
+
+              <div class="treasures-front-info">
+                <div class="treasures-code">H 🌷</div>
+                <div class="treasures-card-title">Happiness Everywhere</div>
+              </div>
+
+              <div class="treasures-hint">Tap to flip ↻</div>
+            </div>
+
+            <div class="treasures-face treasures-face-back">
+              <div class="treasures-badge">🔆</div>
+              <p class="treasures-quote">
+                “Happiness follows wherever you go, and your smile has a
+                special way of making my day better. Life feels warmer
+                and brighter with you in it. 🌷💖”
+              </p>
+              <div class="treasures-hint">Tap to flip back ↻</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- A: Absolutely Amazing -->
+        <div class="treasures-scene">
+          <div class="treasures-card"
+              role="button" tabindex="0"
+              aria-label="Absolutely Amazing. Activate to reveal the message."
+              aria-pressed="false"
+              onclick="toggleTreasuresCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTreasuresCard(this)}">
+
+            <div class="treasures-face">
+              <div class="treasures-badge">👑</div>
+
+              <div class="treasures-letter-row">
+                <span class="treasures-letter">A</span>
+                <span class="treasures-decoration">👑</span>
+              </div>
+
+              <div class="treasures-front-info">
+                <div class="treasures-code">A 👑</div>
+                <div class="treasures-card-title">Absolutely Amazing</div>
+              </div>
+
+              <div class="treasures-hint">Tap to flip ↻</div>
+            </div>
+
+            <div class="treasures-face treasures-face-back">
+              <div class="treasures-badge">👑</div>
+              <p class="treasures-quote">
+                “You are absolutely amazing and one of a kind, Shikha.
+                You never need to be anyone else to shine. To me, you
+                are special exactly as you are. 👑💖”
+              </p>
+              <div class="treasures-hint">Tap to flip back ↻</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="treasures-footer-note">
+        A little reminder of all the beautiful things that make you, YOU 💗
+      </p>
+
+    </section>
+
+
+
+    <!-- SECTION 4: INTERACTIVE BIRTHDAY CAKE & WISH RITUAL -->
+    <section id="cakeSection" class="py-24 w-full max-w-3xl flex flex-col items-center relative">
+      
+      <div class="text-center mb-8">
+        <span class="text-xs uppercase tracking-widest text-rosegold-400 font-semibold">The Sacred Tradition</span>
+        <h3 class="font-display text-3xl sm:text-5xl text-champagne-100 mt-2">Ek Pyaari Si Wish Maango Bitto 💖</h3>
+        <p class="text-champagne-300/70 text-sm sm:text-base mt-2 max-w-md mx-auto">
+          Aankhein band karo, dil se ek wish maango aur phir apni birthday candles bujha do, Bitto! ✨
+        </p>
+      </div>
+
+      <!-- The Cake Stage Container -->
+      <div class="relative w-full flex flex-col items-center justify-center p-8 sm:p-12 glass-card rounded-3xl border border-rosegold-400/30 overflow-hidden">
+        
+        <!-- Ambient cake glow -->
+        <div id="cakeGlow" class="absolute w-80 h-80 bg-champagne-400/15 rounded-full blur-3xl pointer-events-none transition-all duration-1000"></div>
+
+        <!-- The Virtual Cake Illustration (Pure CSS / SVG Styling) -->
+        <div class="relative flex flex-col items-center my-6">
+
+          <!-- Candles Container (3 Candles) -->
+          <div class="flex items-end justify-center gap-6 sm:gap-10 mb-[-2px] z-20">
+            
+            <!-- Candle 1 -->
+            <div class="flex flex-col items-center relative">
+              <div id="flame1" class="candle-flame w-4 h-7 bg-gradient-to-t from-amber-500 via-yellow-300 to-white rounded-full cursor-pointer" onclick="blowCandles()"></div>
+              <div id="smoke1" class="hidden absolute -top-8 w-3 h-3 rounded-full bg-gray-400/70"></div>
+              <div class="w-1 h-3 bg-stone-700"></div>
+              <div class="w-4 h-14 bg-gradient-to-r from-rosegold-300 via-champagne-200 to-rosegold-300 rounded-t-sm shadow-md"></div>
+            </div>
+
+            <!-- Candle 2 (Center - taller) -->
+            <div class="flex flex-col items-center relative">
+              <div id="flame2" class="candle-flame w-5 h-8 bg-gradient-to-t from-amber-500 via-yellow-300 to-white rounded-full cursor-pointer" onclick="blowCandles()"></div>
+              <div id="smoke2" class="hidden absolute -top-8 w-3 h-3 rounded-full bg-gray-400/70"></div>
+              <div class="w-1 h-3.5 bg-stone-700"></div>
+              <div class="w-4.5 h-18 bg-gradient-to-r from-champagne-200 via-white to-champagne-300 rounded-t-sm shadow-md"></div>
+            </div>
+
+            <!-- Candle 3 -->
+            <div class="flex flex-col items-center relative">
+              <div id="flame3" class="candle-flame w-4 h-7 bg-gradient-to-t from-amber-500 via-yellow-300 to-white rounded-full cursor-pointer" onclick="blowCandles()"></div>
+              <div id="smoke3" class="hidden absolute -top-8 w-3 h-3 rounded-full bg-gray-400/70"></div>
+              <div class="w-1 h-3 bg-stone-700"></div>
+              <div class="w-4 h-14 bg-gradient-to-r from-rosegold-300 via-champagne-200 to-rosegold-300 rounded-t-sm shadow-md"></div>
+            </div>
+
+          </div>
+
+          <!-- Top Tier of Cake -->
+          <div class="w-48 sm:w-60 h-16 rounded-t-2xl bg-gradient-to-r from-rosegold-600 via-rosegold-400 to-rosegold-500 relative flex justify-center shadow-lg border-t border-champagne-200/50">
+            <!-- Frosting drips -->
+            <div class="absolute -top-1 w-full flex justify-around">
+              <div class="w-4 h-4 bg-champagne-100 rounded-b-full"></div>
+              <div class="w-5 h-6 bg-champagne-100 rounded-b-full"></div>
+              <div class="w-4 h-5 bg-champagne-100 rounded-b-full"></div>
+              <div class="w-5 h-7 bg-champagne-100 rounded-b-full"></div>
+              <div class="w-4 h-4 bg-champagne-100 rounded-b-full"></div>
+            </div>
+            <!-- Decorative sugar pearls -->
+            <div class="mt-4 flex gap-3 opacity-80">
+              <span class="w-2 h-2 rounded-full bg-champagne-200 shadow"></span>
+              <span class="w-2 h-2 rounded-full bg-champagne-200 shadow"></span>
+              <span class="w-2 h-2 rounded-full bg-champagne-200 shadow"></span>
+              <span class="w-2 h-2 rounded-full bg-champagne-200 shadow"></span>
+              <span class="w-2 h-2 rounded-full bg-champagne-200 shadow"></span>
+            </div>
+          </div>
+
+          <!-- Bottom Tier of Cake -->
+          <div class="w-64 sm:w-80 h-24 rounded-t-2xl bg-gradient-to-r from-velvet-900 via-rosegold-900 to-velvet-800 border-x border-t border-rosegold-400/40 relative shadow-2xl flex flex-col items-center justify-center">
+            <!-- Gold ribbon border -->
+            <div class="w-full h-2 bg-gradient-to-r from-champagne-400 via-champagne-200 to-champagne-500 my-1"></div>
+            <p class="font-script text-2xl sm:text-3xl text-champagne-200 tracking-wider"> Happy Birthday, Bitto</p>
+            <div class="w-full h-2 bg-gradient-to-r from-champagne-400 via-champagne-200 to-champagne-500 my-1"></div>
+          </div>
+
+          <!-- Cake Stand Plate -->
+          <div class="w-72 sm:w-96 h-4 bg-gradient-to-r from-champagne-400 via-champagne-100 to-champagne-500 rounded-full shadow-2xl border-t border-white/60"></div>
+          <div class="w-32 h-6 bg-gradient-to-r from-stone-400 via-champagne-300 to-stone-400 rounded-b-xl shadow-md"></div>
+        </div>
+
+        <!-- Action Controls -->
+        <div class="mt-6 flex flex-col items-center gap-3">
+          <button id="blowCandlesBtn" onclick="blowCandles()" class="group px-8 py-3.5 rounded-full font-semibold text-sm tracking-wider uppercase bg-gradient-to-r from-champagne-400 to-rosegold-400 text-velvet-950 shadow-xl hover:shadow-champagne-400/30 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2.5">
+            <i data-lucide="wind" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i>
+            <span id="blowBtnText">Candles Bujhao, Bitto 🕯️</span>
+          </button>
+          <span class="text-xs text-champagne-300/50 italic">Ya phir flames par tap kar do, madam ji! 🥰</span>
+        </div>
+
+        <!-- Unveiled Hidden Wish Message (Revealed after candles are blown out) -->
+        <div id="wishRevealedModal" class="hidden opacity-0 mt-8 p-6 sm:p-8 rounded-2xl glass-card-glow text-center max-w-xl transition-all duration-1000 transform translate-y-4">
+          <div class="w-12 h-12 mx-auto rounded-full bg-champagne-400/20 flex items-center justify-center text-champagne-300 mb-3 animate-bounce">
+            <i data-lucide="gift" class="w-6 h-6"></i>
+          </div>
+          <h4 class="font-serif text-2xl sm:text-3xl text-champagne-100 mb-2">Tumhari Wish Ke Liye Dher Saari Duayein! ✨</h4>
+          <p class="font-sans text-champagne-200/90 text-sm sm:text-base leading-relaxed">
+            Bas dil se yahi dua hai ki tumhari har wish poori ho, tumhari life khushiyon se bhari rahe aur tum hamesha aise hi smile karti raho. Tumhe life mein dher saara pyaar, sukoon, achhi health aur woh sab kuch mile jo tum deserve karti ho. Happy Birthday, meri Bitto! ❤️🥹
+          </p>
+          <div class="mt-4 pt-4 border-t border-champagne-400/20">
+            <button onclick="relightCandles()" class="text-xs uppercase tracking-wider text-rosegold-400 hover:text-rosegold-300 font-semibold underline">
+              Candles Phir Se Jalao 🕯️
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+    <!-- Special Gifts Section -->
+    <section id="special-gifts" class="special-gifts">
+      <h2>🎁 Tumhare Liye Special Gifts</h2>
+      <p class="gift-subtitle">
+        Bitto, apne gifts par click karke dekho ❤️
+      </p>
+
+      <div class="gift-container">
+        <div class="gift-card" onclick="openGift('images/gift1.png', 'Gift 1 💝')">
+          <img src="images/gift1.png" alt="Gift 1">
+          <h3>Gift 1 💝</h3>
+          <p>Tumhare liye ek pyaara surprise</p>
+        </div>
+
+        <div class="gift-card" onclick="openGift('images/gift2.png', 'Gift 2 🌸')">
+          <img src="images/gift2.png" alt="Gift 2">
+          <h3>Gift 2 🌸</h3>
+          <p>Ek aur khaas surprise</p>
+        </div>
+
+        <div class="gift-card" onclick="openGift('images/gift3.png', 'Gift 3 🧸')">
+          <img src="images/gift3.png" alt="Gift 3">
+          <h3>Gift 3 ❤️</h3>
+          <p>Sirf meri Bitto ke liye</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Popup -->
+    <div id="gift-popup" class="gift-popup"
+        onclick="closeGift(event)" aria-hidden="true">
+      <button class="gift-close" onclick="closeGift(event)"
+              aria-label="Band karo">&times;</button>
+
+      <div class="gift-popup-content" onclick="event.stopPropagation()">
+        <h3 id="gift-popup-title"></h3>
+        <img id="gift-popup-image" src="" alt="Bade size mein gift photo">
+      </div>
+    </div>
+
+
+    <!-- SECTION 5: FLOATING MESSAGE CAPSULES / POLAROID MEMORIES -->
+    <section class="py-20 w-full max-w-5xl">
+      <div class="text-center mb-12">
+        <span class="text-xs uppercase tracking-widest text-rosegold-400 font-semibold">
+          Chhoti Si Baatein 💖
+        </span>
+
+        <h3 class="font-serif text-3xl sm:text-4xl text-champagne-100 mt-2">
+          Sirf Tumhare Liye ❤️
+        </h3>
+
+        <p class="text-champagne-300/70 text-sm mt-1">
+          click on every card ✨
+        </p>
+      </div>
+
+      
+      <!-- Capsule Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+
+
+        <!-- Capsule 1: Tumhari Zidd -->
+        <div
+          onclick="openCapsule('Pata hai, mujhe tumhara ziddi hona bhi bahut pasand hai  Apni baat manwane ka tumhara alag hi style hai. Bas kabhi-kabhi meri baat bhi maan liya karo madam. ❤️')"
+          class="glass-card hover:bg-rosegold-500/10 p-5 rounded-2xl flex flex-col items-center text-center cursor-pointer border border-rosegold-400/20 hover:border-rosegold-400 hover:scale-105 transition-all duration-300"
+        >
+          <div class="w-10 h-10 rounded-full bg-champagne-400/20 flex items-center justify-center text-champagne-300 mb-3">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
+          </div>
+
+          <span class="font-serif text-champagne-100 font-medium text-sm">
+            Tumhari Zidd 💗
+          </span>
+
+          <span class="text-[11px] text-champagne-300/60 mt-1">
+            Meri Ziddi Madam
+          </span>
+        </div>
+
+        <!-- Capsule 2: Apna Achha Dil Kabhi Mat Badalna -->
+        <div
+          onclick="openCapsule('Tum hamesha aisi hi kind aur helpful rehna. Sabki help karna but apna bhi dhyan rakhna. Tumhara ye helping nature mujhe bahut achha lagta hai.')"
+          class="glass-card hover:bg-rosegold-500/10 p-5 rounded-2xl flex flex-col items-center text-center cursor-pointer border border-rosegold-400/20 hover:border-rosegold-400 hover:scale-105 transition-all duration-300"
+        >
+          <div class="w-10 h-10 rounded-full bg-rosegold-400/20 flex items-center justify-center text-rosegold-300 mb-3">
+            <i data-lucide="flower-2" class="w-5 h-5"></i>
+          </div>
+
+          <span class="font-serif text-champagne-100 font-medium text-sm">
+            Apna Achha Dil Kabhi Mat Badalna 🌷
+          </span>
+
+          <span class="text-[11px] text-champagne-300/60 mt-1">
+            Hamesha Dil Se Achhi Rehna, Bitto
+          </span>
+        </div>
+
+        <!-- Capsule 3: Bas Tum Aisi Hi Rehna -->
+        <div
+          onclick="openCapsule('Tum perfect ho ya nahi, ye matter nahi karta. Mujhe tumhari asli wali personality pasand hai—tumhari baatein, tumhari zidd aur tumhara pagalpan. Bas aisi hi rehna.')"
+          class="glass-card hover:bg-rosegold-500/10 p-5 rounded-2xl flex flex-col items-center text-center cursor-pointer border border-rosegold-400/20 hover:border-rosegold-400 hover:scale-105 transition-all duration-300"
+        >
+          <div class="w-10 h-10 rounded-full bg-champagne-400/20 flex items-center justify-center text-champagne-300 mb-3">
+            <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+          </div>
+
+          <span class="font-serif text-champagne-100 font-medium text-sm">
+            Bas Tum Aisi Hi Rehna ❤️
+          </span>
+
+          <span class="text-[11px] text-champagne-300/60 mt-1">
+            Just The Way You Are ✨
+          </span>
+        </div>
+
+        <!-- Capsule 4: Hamesha Khush Rehna -->
+        <div
+          onclick="openCapsule('Tum hamesha aise hi khush rahna. Tumhari smile dekh ke mujhe bahut achha lagta hai. mujhe tumhare khushi ke alava tumse kuchh nhi chahiye bitto')"
+          class="glass-card hover:bg-rosegold-500/10 p-5 rounded-2xl flex flex-col items-center text-center cursor-pointer border border-rosegold-400/20 hover:border-rosegold-400 hover:scale-105 transition-all duration-300"
+        >
+          <div class="w-10 h-10 rounded-full bg-rosegold-400/20 flex items-center justify-center text-rosegold-300 mb-3">
+            <i data-lucide="heart" class="w-5 h-5"></i>
+          </div>
+
+          <span class="font-serif text-champagne-100 font-medium text-sm">
+            Hamesha Khush Rehna 🌸
+          </span>
+
+          <span class="text-[11px] text-champagne-300/60 mt-1">
+            Tumhare liye 💗
+          </span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FOOTER / SIGN-OFF -->
+    <footer class="w-full border-t border-rosegold-400/20 py-12 text-center text-champagne-300/70 text-sm">
+      <div class="flex items-center justify-center gap-2 mb-3">
+        <i data-lucide="heart" class="w-4 h-4 fill-rosegold-400 text-rosegold-400"></i>
+        <span class="font-serif italic text-champagne-200">Created with eternal adoration, exclusively for you.</span>
+        <i data-lucide="heart" class="w-4 h-4 fill-rosegold-400 text-rosegold-400"></i>
+      </div>
+      <p class="text-xs text-champagne-400/40">Happy Birthday to the one who makes ordinary moments miraculous.</p>
+    </footer>
+
+  </div>
+
+  <!-- POPUP MODAL FOR CAPSULE NOTES -->
+  <div id="capsuleModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div class="glass-card-glow max-w-md w-full p-8 rounded-3xl text-center relative border border-champagne-300/50 shadow-2xl">
+      <div class="w-14 h-14 rounded-full bg-rosegold-500/20 text-rosegold-300 flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="quote" class="w-6 h-6"></i>
+      </div>
+      <p id="capsuleContentText" class="font-serif italic text-lg text-champagne-100 leading-relaxed mb-6"></p>
+      <button onclick="closeCapsuleModal()" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-rosegold-500 to-champagne-400 text-velvet-950 font-semibold text-xs uppercase tracking-wider shadow-lg hover:scale-105 active:scale-95 transition-transform">
+        Keep in My Heart
+      </button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC & WEB AUDIO ENGINE -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Format current date in letter
+    const today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const dateElement = document.getElementById('currentDateStr');
+    if (dateElement) {
+      dateElement.innerText = today.toLocaleDateString(undefined, options);
+    }
+
+    /* -------------------------------------------------------------
+    0. COUNTDOWN TIMER & CELEBRATION ENGINE
+    ------------------------------------------------------------- */
+    let countdownInterval = null;
+    let targetBirthdayDate = new Date("2026-11-05T00:00:00");
+    let birthdayTriggered = false;
+
+    function formatTwoDigits(num) {
+      return num < 10 ? '0' + num : num;
+    }
+
+    function startCountdownTimer() {
+      if (countdownInterval) clearInterval(countdownInterval);
+
+      function updateClock() {
+        const now = new Date().getTime();
+        const difference = targetBirthdayDate.getTime() - now;
+
+        const daysSpan = document.getElementById('daysCount');
+        const hoursSpan = document.getElementById('hoursCount');
+        const minutesSpan = document.getElementById('minutesCount');
+        const secondsSpan = document.getElementById('secondsCount');
+        const messageEl = document.getElementById('countdownMessage');
+        const celebrationBanner = document.getElementById('birthdayCelebrationBanner');
+
+        if (difference <= 0) {
+          // It is officially their Birthday!
+          daysSpan.innerText = '00';
+          hoursSpan.innerText = '00';
+          minutesSpan.innerText = '00';
+          secondsSpan.innerText = '00';
+
+          messageEl.innerText = "✨ The universe rejoices: It's your special day today! ✨";
+          celebrationBanner.classList.remove('hidden');
+
+          if (!birthdayTriggered) {
+            birthdayTriggered = true;
+            celebrationConfetti();
+            initAudioContext();
+            if (audioCtx) {
+              [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                setTimeout(() => playSoftChime(freq, 2.5), idx * 180);
+              });
+            }
+          }
+        } else {
+          // Counting down
+          birthdayTriggered = false;
+          celebrationBanner.classList.add('hidden');
+          messageEl.innerText = 'Counting down every second until your magical day...';
+
+          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+          daysSpan.innerText = formatTwoDigits(days);
+          hoursSpan.innerText = formatTwoDigits(hours);
+          minutesSpan.innerText = formatTwoDigits(minutes);
+          secondsSpan.innerText = formatTwoDigits(seconds);
+        }
+      }
+
+      updateClock();
+      countdownInterval = setInterval(updateClock, 1000);
+    }
+
+    // Initialize timer on load
+    startCountdownTimer();
+
+
+    /* -------------------------------------------------------------
+       1. STAR & FLOATING EMBER CANVAS PARTICLES
+    ------------------------------------------------------------- */
+    const canvas = document.getElementById('star-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2.2 + 0.6;
+        this.baseAlpha = Math.random() * 0.7 + 0.2;
+        this.alpha = this.baseAlpha;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = -Math.random() * 0.4 - 0.1; // Gentle drift upwards
+        this.color = Math.random() > 0.4 ? '244, 166, 200' : '237, 220, 193'; // Rose gold or Champagne
+        this.twinkleSpeed = Math.random() * 0.02 + 0.005;
+        this.angle = Math.random() * Math.PI * 2;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.angle += this.twinkleSpeed;
+        this.alpha = this.baseAlpha + Math.sin(this.angle) * 0.25;
+
+        // Wrap around borders
+        if (this.y < 0) this.y = height;
+        if (this.x < 0) this.x = width;
+        if (this.x > width) this.x = 0;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.color}, ${Math.max(0, this.alpha)})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = `rgba(${this.color}, 0.8)`;
+        ctx.fill();
+      }
+    }
+
+    // Initialize particles
+    const count = window.innerWidth < 640 ? 45 : 85;
+    for (let i = 0; i < count; i++) {
+      particles.push(new Particle());
+    }
+
+    function renderParticles() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(renderParticles);
+    }
+    renderParticles();
+
+    /* -------------------------------------------------------------
+       2. WEB AUDIO API - ETHEREAL CELEBRATORY CHIMES
+    ------------------------------------------------------------- */
+    let audioCtx = null;
+    let isMusicPlaying = false;
+    let chimeInterval = null;
+
+    // Pentatonic ethereal notes for sweet, romantic music (Hz)
+    const melodyNotes = [
+      261.63, // C4
+      293.66, // D4
+      329.63, // E4
+      392.00, // G4
+      440.00, // A4
+      523.25, // C5
+      587.33, // D5
+      659.25  // E5
+    ];
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playSoftChime(freq, duration = 2.5) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      // Sine wave for crystal music-box vibe
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+      // Delicate envelope
+      gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.07, audioCtx.currentTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    function startChimeMelody() {
+      if (chimeInterval) clearInterval(chimeInterval);
+      chimeInterval = setInterval(() => {
+        const randomNote = melodyNotes[Math.floor(Math.random() * melodyNotes.length)];
+        playSoftChime(randomNote, 3.0);
+      }, 900);
+    }
+
+    function toggleAmbientMusic() {
+      initAudioContext();
+      const dot = document.getElementById('soundDot');
+      const ping = document.getElementById('soundPing');
+      const text = document.getElementById('soundText');
+
+      if (!isMusicPlaying) {
+        isMusicPlaying = true;
+        startChimeMelody();
+        dot.classList.remove('bg-gray-500');
+        dot.classList.add('bg-rosegold-400');
+        ping.classList.remove('hidden');
+        text.innerText = 'Chimes On';
+        text.classList.add('text-rosegold-300');
+      } else {
+        isMusicPlaying = false;
+        clearInterval(chimeInterval);
+        chimeInterval = null;
+        dot.classList.remove('bg-rosegold-400');
+        dot.classList.add('bg-gray-500');
+        ping.classList.add('hidden');
+        text.innerText = 'Play Chimes';
+        text.classList.remove('text-rosegold-300');
+      }
+    }
+
+
+     //Music system
+
+    
+    function toggleBirthdayMusic() {
+      const music = document.getElementById("birthdayMusic");
+      const dot = document.getElementById("soundDot");
+      const ping = document.getElementById("soundPing");
+      const text = document.getElementById("soundText");
+
+      if (music.paused) {
+        music.volume = 0.5;
+
+        music.play()
+          .then(() => {
+            dot.classList.remove("bg-gray-500");
+            dot.classList.add("bg-rosegold-400");
+            ping.classList.remove("hidden");
+            text.innerText = "Pause Hindi Song";
+          })
+          .catch(error => {
+            console.log("Hindi song could not play:", error);
+          });
+      } else {
+        music.pause();
+
+        dot.classList.remove("bg-rosegold-400");
+        dot.classList.add("bg-gray-500");
+        ping.classList.add("hidden");
+        text.innerText = "Play Hindi Song";
+      }
+    }
+
+
+
+    /* -------------------------------------------------------------
+       3. ENVELOPE UNFOLDING INTERACTION
+    ------------------------------------------------------------- */
+    let isEnvelopeOpen = false;
+    function toggleEnvelope() {
+      const cover = document.getElementById('envelopeCover');
+      const letter = document.getElementById('envelopeLetter');
+
+      if (!isEnvelopeOpen) {
+        // Open
+        cover.classList.add('hidden');
+        letter.classList.remove('hidden');
+        setTimeout(() => {
+          letter.classList.remove('opacity-0', 'translate-y-4');
+          letter.classList.add('opacity-100', 'translate-y-0');
+        }, 30);
+        isEnvelopeOpen = true;
+        triggerSparkleBurst();
+        // Play melodic chord
+        initAudioContext();
+        if (audioCtx) {
+          playSoftChime(523.25, 2.0);
+          setTimeout(() => playSoftChime(659.25, 2.0), 120);
+        }
+      } else {
+        // Close
+        letter.classList.add('opacity-0', 'translate-y-4');
+        letter.classList.remove('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+          letter.classList.add('hidden');
+          cover.classList.remove('hidden');
+        }, 500);
+        isEnvelopeOpen = false;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       4. FLIP CARDS
+    ------------------------------------------------------------- */
+    function toggleCard(cardElement) {
+      const inner = cardElement.querySelector('.transform-style-preserve-3d');
+      if (inner.style.transform === 'rotateY(180deg)') {
+        inner.style.transform = 'rotateY(0deg)';
+      } else {
+        inner.style.transform = 'rotateY(180deg)';
+        initAudioContext();
+        if (audioCtx) playSoftChime(440, 1.2);
+      }
+    }
+
+    function toggleTreasuresCard(card) {
+      const isFlipped = card.classList.toggle("is-flipped");
+
+      card.setAttribute("aria-pressed", String(isFlipped));
+
+      // Play a soft chime using your existing audio system.
+      if (isFlipped && typeof initAudioContext === "function") {
+        initAudioContext();
+
+        if (audioCtx) {
+          playSoftChime(440, 1.2);
+        }
+      }
+    }
+
+    /* -------------------------------------------------------------
+       5. BLOW OUT THE CANDLES & CELEBRATION WISH
+    ------------------------------------------------------------- */
+    let candlesBlown = false;
+
+    function blowCandles() {
+      if (candlesBlown) return;
+      candlesBlown = true;
+
+      
+      
+      const hindiMusic = document.getElementById("birthdayMusic");
+      const wishMusic = document.getElementById("birthdayWishMusic");
+
+      // Remember whether the Hindi song was playing
+      const wasHindiPlaying = !hindiMusic.paused;
+
+      // Pause the Hindi song if it is playing
+      if (wasHindiPlaying) {
+          hindiMusic.pause();
+      }
+
+      // Play Happy Birthday for 10 seconds
+      wishMusic.pause();
+      wishMusic.currentTime = 0;
+      wishMusic.volume = 0.7;
+
+      wishMusic.play()
+          .then(() => {
+              setTimeout(() => {
+                  wishMusic.pause();
+                  wishMusic.currentTime = 0;
+
+                  // Resume Hindi song only if it was playing before
+                  if (wasHindiPlaying) {
+                      hindiMusic.play().catch(error => {
+                          console.log("Hindi song could not resume:", error);
+                      });
+                  }
+              }, 5000);
+          })
+          .catch(error => {
+              console.log("Happy Birthday song could not play:", error);
+
+              // Resume Hindi song if it was playing before
+              if (wasHindiPlaying) {
+                  hindiMusic.play().catch(console.error);
+              }
+          });
+
+
+      // Extinguish flames
+      const flames = [
+        document.getElementById('flame1'),
+        document.getElementById('flame2'),
+        document.getElementById('flame3')
+      ];
+      const smokes = [
+        document.getElementById('smoke1'),
+        document.getElementById('smoke2'),
+        document.getElementById('smoke3')
+      ];
+
+      flames.forEach(f => f.classList.add('blown-out'));
+      smokes.forEach(s => {
+        s.classList.remove('hidden');
+        s.classList.add('smoke-puff');
+      });
+
+      // Dim cake glow slightly
+      document.getElementById('cakeGlow').classList.add('opacity-30');
+
+      // Update button text
+      document.getElementById('blowBtnText').innerText = 'Wish Granted ✨';
+      document.getElementById('blowCandlesBtn').classList.add('opacity-60', 'cursor-default');
+
+      // Fire fireworks & heart confetti
+      celebrationConfetti();
+
+  
+      // Reveal wish letter modal
+      const modal = document.getElementById('wishRevealedModal');
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0', 'translate-y-4');
+        modal.classList.add('opacity-100', 'translate-y-0');
+      }, 500);
+    }
+
+    function relightCandles() {
+      candlesBlown = false;
+      const flames = [
+        document.getElementById('flame1'),
+        document.getElementById('flame2'),
+        document.getElementById('flame3')
+      ];
+      const smokes = [
+        document.getElementById('smoke1'),
+        document.getElementById('smoke2'),
+        document.getElementById('smoke3')
+      ];
+
+      flames.forEach(f => f.classList.remove('blown-out'));
+      smokes.forEach(s => s.classList.add('hidden'));
+      document.getElementById('cakeGlow').classList.remove('opacity-30');
+
+      document.getElementById('blowBtnText').innerText = 'Candles Bujhao, Bitto 🕯️';
+      document.getElementById('blowCandlesBtn').classList.remove('opacity-60', 'cursor-default');
+
+      const modal = document.getElementById('wishRevealedModal');
+      modal.classList.add('opacity-0', 'translate-y-4');
+      setTimeout(() => modal.classList.add('hidden'), 500);
+    }
+
+    /* -------------------------------------------------------------
+       6. CONFETTI BURST EFFECTS
+    ------------------------------------------------------------- */
+    function celebrationConfetti() {
+      const duration = 3.5 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#f4a6c8', '#eddcc1', '#d4af37', '#ffffff']
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#f4a6c8', '#eddcc1', '#d4af37', '#ffffff']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+
+    function triggerSparkleBurst() {
+      confetti({
+        particleCount: 40,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#eddcc1', '#fbcfe8', '#d4af37']
+      });
+    }
+
+    function triggerHeartExplosion() {
+      confetti({
+        particleCount: 50,
+        spread: 90,
+        origin: { y: 0.65 },
+        shapes: ['circle'],
+        colors: ['#e580a6', '#f4a6c8', '#ffffff']
+      });
+      initAudioContext();
+      if (audioCtx) {
+        playSoftChime(659.25, 2.0);
+        setTimeout(() => playSoftChime(783.99, 2.0), 100);
+      }
+    }
+
+    /* -------------------------------------------------------------
+      7. CAPSULE MODAL INTERACTIONS
+    ------------------------------------------------------------- */
+    function openCapsule(text) {
+      const modal = document.getElementById('capsuleModal');
+      const content = document.getElementById('capsuleContentText');
+      content.innerText = `“${text}”`;
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+      }, 20);
+
+      initAudioContext();
+      if (audioCtx) playSoftChime(587.33, 1.8);
+    }
+
+    function closeCapsuleModal() {
+      const modal = document.getElementById('capsuleModal');
+      modal.classList.add('opacity-0');
+      modal.classList.remove('opacity-100');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    /* -------------------------------------------------------------
+      8. SPECIAL GIFT PHOTO POPUP
+    ------------------------------------------------------------- */
+
+    function openGift(imagePath, title) {
+      const popup = document.getElementById("gift-popup");
+      const popupImage = document.getElementById("gift-popup-image");
+      const popupTitle = document.getElementById("gift-popup-title");
+
+      popupImage.src = imagePath;
+      popupImage.alt = title;
+      popupTitle.textContent = title;
+
+      popup.classList.add("show");
+      popup.setAttribute("aria-hidden", "false");
+
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeGift(event) {
+      const popup = document.getElementById("gift-popup");
+
+      // Popup tabhi band hoga jab background ya close button par click ho.
+      if (
+        event.target.id === "gift-popup" ||
+        event.target.classList.contains("gift-close")
+      ) {
+        popup.classList.remove("show");
+        popup.setAttribute("aria-hidden", "true");
+
+        document.getElementById("gift-popup-image").src = "";
+        document.body.style.overflow = "";
+      }
+    }
+
+    // Escape key dabane par bhi photo band ho jayegi.
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        const popup = document.getElementById("gift-popup");
+
+        if (popup.classList.contains("show")) {
+          popup.classList.remove("show");
+          popup.setAttribute("aria-hidden", "true");
+
+          document.getElementById("gift-popup-image").src = "";
+          document.body.style.overflow = "";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
