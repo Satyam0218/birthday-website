@@ -644,7 +644,7 @@
   </audio>
 
   <audio id="birthdayWishMusic">
-    <source src="audio/birthday-song.mp3" type="audio/mpeg">
+    <source src="audio/birthdayWish.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Interactive Starry Background Canvas -->
@@ -658,7 +658,7 @@
         <span id="soundDot" class="relative inline-flex rounded-full h-3 w-3 bg-gray-500"></span>
       </span>
       <i id="soundIcon" data-lucide="music-2" class="w-4 h-4 text-champagne-300 group-hover:text-rosegold-300 transition-colors"></i>
-      <span id="soundText" class="text-xs uppercase tracking-wider font-semibold text-champagne-200">Play Hindi Song</span>
+      <span id="soundText" class="text-xs uppercase tracking-wider font-semibold text-champagne-200">Play Song</span>
     </button>
 
   </div>
@@ -689,7 +689,7 @@
 
       <!-- Subtitle description -->
       <p class="font-serif italic text-lg sm:text-2xl text-champagne-200/90 max-w-2xl font-light leading-relaxed mb-8">
-        “Out of seven billion souls on this spinning planet, Bitto your laugh is my happiness and I want aap hamesha hasti rhe.”
+        “Out of seven billion souls on this spinning planet, Bitto your laugh is my happiness and and your heart is my favorite home.”
       </p>
 
       <!-- COUNTDOWN TIMER MODULE -->
@@ -1618,72 +1618,80 @@
       osc.stop(audioCtx.currentTime + duration);
     }
 
-    function startChimeMelody() {
-      if (chimeInterval) clearInterval(chimeInterval);
-      chimeInterval = setInterval(() => {
-        const randomNote = melodyNotes[Math.floor(Math.random() * melodyNotes.length)];
-        playSoftChime(randomNote, 3.0);
-      }, 900);
-    }
-
-    function toggleAmbientMusic() {
-      initAudioContext();
-      const dot = document.getElementById('soundDot');
-      const ping = document.getElementById('soundPing');
-      const text = document.getElementById('soundText');
-
-      if (!isMusicPlaying) {
-        isMusicPlaying = true;
-        startChimeMelody();
-        dot.classList.remove('bg-gray-500');
-        dot.classList.add('bg-rosegold-400');
-        ping.classList.remove('hidden');
-        text.innerText = 'Chimes On';
-        text.classList.add('text-rosegold-300');
-      } else {
-        isMusicPlaying = false;
-        clearInterval(chimeInterval);
-        chimeInterval = null;
-        dot.classList.remove('bg-rosegold-400');
-        dot.classList.add('bg-gray-500');
-        ping.classList.add('hidden');
-        text.innerText = 'Play Chimes';
-        text.classList.remove('text-rosegold-300');
-      }
-    }
-
 
      //Music system
 
     
-    function toggleBirthdayMusic() {
+    
+  function toggleBirthdayMusic() {
+    const music = document.getElementById("birthdayMusic");
+    const dot = document.getElementById("soundDot");
+    const ping = document.getElementById("soundPing");
+    const text = document.getElementById("soundText");
+    const button = document.getElementById("soundToggle");
+
+    if (music.paused) {
+      music.volume = 0.9;
+
+      music.play()
+        .then(() => {
+          dot.classList.remove("bg-gray-500");
+          dot.classList.add("bg-rosegold-400");
+          ping.classList.remove("hidden");
+          text.innerText = "Pause Song";
+          button.classList.remove("animate-pulse");
+        })
+        .catch(error => {
+          console.log("Birthday song could not play:", error);
+          text.innerText = "Tap to Play 🎵";
+          button.classList.add("animate-pulse");
+        });
+    } else {
+      music.pause();
+
+      dot.classList.remove("bg-rosegold-400");
+      dot.classList.add("bg-gray-500");
+      ping.classList.add("hidden");
+      text.innerText = "Play Song";
+      button.classList.remove("animate-pulse");
+    }
+  }
+
+
+
+    async function tryAutoplayBirthdayMusic() {
       const music = document.getElementById("birthdayMusic");
       const dot = document.getElementById("soundDot");
       const ping = document.getElementById("soundPing");
       const text = document.getElementById("soundText");
 
-      if (music.paused) {
-        music.volume = 0.5;
+      // Set the initial state while trying autoplay.
+      text.innerText = "Loading Song...";
+      music.volume = 0.9;
 
-        music.play()
-          .then(() => {
-            dot.classList.remove("bg-gray-500");
-            dot.classList.add("bg-rosegold-400");
-            ping.classList.remove("hidden");
-            text.innerText = "Pause Hindi Song";
-          })
-          .catch(error => {
-            console.log("Hindi song could not play:", error);
-          });
-      } else {
-        music.pause();
+      try {
+        await music.play();
 
+        // Autoplay succeeded.
+        dot.classList.remove("bg-gray-500");
+        dot.classList.add("bg-rosegold-400");
+        ping.classList.remove("hidden");
+        text.innerText = "Pause Song";
+      } catch (error) {
+        // Autoplay was blocked: invite her to click the button.
         dot.classList.remove("bg-rosegold-400");
         dot.classList.add("bg-gray-500");
         ping.classList.add("hidden");
-        text.innerText = "Play Hindi Song";
+        text.innerText = "Tap to Play 🎵";
+
+        // Make the button gently pulse to attract attention.
+        document.getElementById("soundToggle")
+          .classList.add("animate-pulse");
       }
     }
+
+    // Try autoplay after the page loads.
+    window.addEventListener("load", tryAutoplayBirthdayMusic);
 
 
 
@@ -1771,13 +1779,13 @@
 
       // Pause the Hindi song if it is playing
       if (wasHindiPlaying) {
-          hindiMusic.pause();
+        toggleBirthdayMusic();
       }
 
       // Play Happy Birthday for 10 seconds
       wishMusic.pause();
       wishMusic.currentTime = 0;
-      wishMusic.volume = 0.7;
+      wishMusic.volume = 0.9;
 
       wishMusic.play()
           .then(() => {
@@ -1786,12 +1794,9 @@
                   wishMusic.currentTime = 0;
 
                   // Resume Hindi song only if it was playing before
-                  if (wasHindiPlaying) {
-                      hindiMusic.play().catch(error => {
-                          console.log("Hindi song could not resume:", error);
-                      });
-                  }
-              }, 5000);
+                  toggleBirthdayMusic();
+                  
+              }, 10000);
           })
           .catch(error => {
               console.log("Happy Birthday song could not play:", error);
