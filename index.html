@@ -823,7 +823,7 @@
               </div>
 
               <!-- Romantic Letter Content (Editable by user) -->
-              <div id="letterEditableText" contenteditable="true" spellcheck="false" class="focus:outline-none focus:ring-1 focus:ring-rosegold-400 rounded p-1 text-sm sm:text-base leading-relaxed text-stone-800 space-y-4">
+              <div id="letterEditableText" contenteditable="false" spellcheck="false" class="focus:outline-none focus:ring-1 focus:ring-rosegold-400 rounded p-1 text-sm sm:text-base leading-relaxed text-stone-800 space-y-4">
                 <p>
                   Happy Birthday, meri pyaari Bitto! ❤️🥹
                   Sabse pehle toh main bas yahi chahta hoon ki tum hamesha khush raho.
@@ -1273,7 +1273,7 @@
           <p>Ek aur khaas surprise</p>
         </div>
 
-        <div class="gift-card" onclick="openGift('images/gift3.png', 'Gift 3 🧸')">
+        <div class="gift-card" onclick="openGift('images/gift3.png', 'Gift 3 ❤️')">
           <img src="images/gift3.png" alt="Gift 3">
           <h3>Gift 3 ❤️</h3>
           <p>Sirf meri Bitto ke liye</p>
@@ -1619,43 +1619,40 @@
     }
 
 
-     //Music system
+    //Music system
+    function toggleBirthdayMusic() {
+      const music = document.getElementById("birthdayMusic");
+      const dot = document.getElementById("soundDot");
+      const ping = document.getElementById("soundPing");
+      const text = document.getElementById("soundText");
+      const button = document.getElementById("soundToggle");
 
-    
-    
-  function toggleBirthdayMusic() {
-    const music = document.getElementById("birthdayMusic");
-    const dot = document.getElementById("soundDot");
-    const ping = document.getElementById("soundPing");
-    const text = document.getElementById("soundText");
-    const button = document.getElementById("soundToggle");
+      if (music.paused) {
+        music.volume = 0.9;
 
-    if (music.paused) {
-      music.volume = 0.9;
+        music.play()
+          .then(() => {
+            dot.classList.remove("bg-gray-500");
+            dot.classList.add("bg-rosegold-400");
+            ping.classList.remove("hidden");
+            text.innerText = "Pause Song";
+            button.classList.remove("animate-pulse");
+          })
+          .catch(error => {
+            console.log("Birthday song could not play:", error);
+            text.innerText = "Tap to Play 🎵";
+            button.classList.add("animate-pulse");
+          });
+      } else {
+        music.pause();
 
-      music.play()
-        .then(() => {
-          dot.classList.remove("bg-gray-500");
-          dot.classList.add("bg-rosegold-400");
-          ping.classList.remove("hidden");
-          text.innerText = "Pause Song";
-          button.classList.remove("animate-pulse");
-        })
-        .catch(error => {
-          console.log("Birthday song could not play:", error);
-          text.innerText = "Tap to Play 🎵";
-          button.classList.add("animate-pulse");
-        });
-    } else {
-      music.pause();
-
-      dot.classList.remove("bg-rosegold-400");
-      dot.classList.add("bg-gray-500");
-      ping.classList.add("hidden");
-      text.innerText = "Play Song";
-      button.classList.remove("animate-pulse");
+        dot.classList.remove("bg-rosegold-400");
+        dot.classList.add("bg-gray-500");
+        ping.classList.add("hidden");
+        text.innerText = "Play Song";
+        button.classList.remove("animate-pulse");
+      }
     }
-  }
 
 
 
@@ -1953,11 +1950,20 @@
     /* -------------------------------------------------------------
       8. SPECIAL GIFT PHOTO POPUP
     ------------------------------------------------------------- */
-
     function openGift(imagePath, title) {
       const popup = document.getElementById("gift-popup");
       const popupImage = document.getElementById("gift-popup-image");
       const popupTitle = document.getElementById("gift-popup-title");
+
+      // Add a temporary browser history entry when opening the popup.
+      // Don't add another entry if the popup is already open.
+      if (!popup.classList.contains("show")) {
+        history.pushState(
+          { giftPopupOpen: true },
+          "",
+          window.location.href
+        );
+      }
 
       popupImage.src = imagePath;
       popupImage.alt = title;
@@ -1965,40 +1971,63 @@
 
       popup.classList.add("show");
       popup.setAttribute("aria-hidden", "false");
-
       document.body.style.overflow = "hidden";
     }
 
-    function closeGift(event) {
+    // Hides the popup and restores page scrolling.
+    function hideGiftPopup() {
       const popup = document.getElementById("gift-popup");
 
-      // Popup tabhi band hoga jab background ya close button par click ho.
+      popup.classList.remove("show");
+      popup.setAttribute("aria-hidden", "true");
+
+      document.getElementById("gift-popup-image").src = "";
+      document.body.style.overflow = "";
+    }
+
+    // Handles clicking the background or the close button.
+    function closeGift(event) {
       if (
         event.target.id === "gift-popup" ||
         event.target.classList.contains("gift-close")
       ) {
-        popup.classList.remove("show");
-        popup.setAttribute("aria-hidden", "true");
+        const shouldGoBack = history.state?.giftPopupOpen === true;
 
-        document.getElementById("gift-popup-image").src = "";
-        document.body.style.overflow = "";
+        hideGiftPopup();
+
+        // Remove the temporary popup entry from browser history.
+        if (shouldGoBack) {
+          history.back();
+        }
       }
     }
 
-    // Escape key dabane par bhi photo band ho jayegi.
-    document.addEventListener("keydown", function(event) {
+    // System/browser Back button closes the popup first.
+    window.addEventListener("popstate", function () {
+      const popup = document.getElementById("gift-popup");
+
+      if (popup.classList.contains("show")) {
+        hideGiftPopup();
+      }
+    });
+
+    // Escape key also closes the popup.
+    document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") {
         const popup = document.getElementById("gift-popup");
 
         if (popup.classList.contains("show")) {
-          popup.classList.remove("show");
-          popup.setAttribute("aria-hidden", "true");
+          const shouldGoBack = history.state?.giftPopupOpen === true;
 
-          document.getElementById("gift-popup-image").src = "";
-          document.body.style.overflow = "";
+          hideGiftPopup();
+
+          if (shouldGoBack) {
+            history.back();
+          }
         }
       }
     });
+
   </script>
 </body>
 </html>
